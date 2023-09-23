@@ -4,6 +4,7 @@ var admin2 = ee.FeatureCollection("FAO/GAUL_SIMPLIFIED_500m/2015/level2");
 var filtered = admin2
   .filter(ee.Filter.eq('ADM1_NAME', 'California'));
 
-var visParams = {'color': 'red'};
 Map.centerObject(filtered)
+
+var visParams = {'color': 'red'};
 Map.addLayer(filtered, visParams, 'Selected Admin2');
