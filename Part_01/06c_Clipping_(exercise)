@@ -26,3 +26,4 @@ Map.addLayer(clipped, rgbVis, 'Clipped Composite');
 
 // Exercise
 // Change the filters to select a Admin2 region of your choice
+// Display the clipped composite
