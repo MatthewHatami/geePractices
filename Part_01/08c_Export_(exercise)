@@ -1,0 +1,26 @@
+// Change the filter to your city
+// Write the export function to export the results
+
+var s2 = ee.ImageCollection('COPERNICUS/S2_HARMONIZED');
+var urban = ee.FeatureCollection('users/ujavalgandhi/e2e/ghs_urban_centers');
+
+var filtered = urban.filter(ee.Filter.eq('UC_NM_MN', 'Bengaluru'));
+var geometry = filtered.geometry();
+
+var rgbVis = {
+  min: 0.0,
+  max: 3000,
+  bands: ['B4', 'B3', 'B2'], 
+};
+var filtered = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
+  .filter(ee.Filter.date('2019-01-01', '2020-01-01'))
+  .filter(ee.Filter.bounds(geometry));
+
+var image = filtered.median(); 
+
+var clipped = image.clip(geometry);
+Map.centerObject(geometry);
+Map.addLayer(clipped, rgbVis, 'Clipped');
+
+var exportImage = clipped.select('B.*');
+
