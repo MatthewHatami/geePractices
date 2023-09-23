@@ -6,5 +6,4 @@ var filtered = admin2
 
 Map.centerObject(filtered)
 
-var visParams = {'color': 'red'};
-Map.addLayer(filtered, visParams, 'Selected Admin2');
+Map.addLayer(filtered, {'color': 'red'}, 'Selected Admin2');
