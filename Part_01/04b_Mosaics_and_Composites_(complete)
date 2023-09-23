@@ -1,4 +1,6 @@
-var geometry = ee.Geometry.Point([77.60412933051538, 12.952912912328241]);
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var geometry = /* color: #0B4A8B */ee.Geometry.Point([77.60412933051538, 12.952912912328241]);
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
 var s2 = ee.ImageCollection('COPERNICUS/S2_HARMONIZED');
 
 var rgbVis = {
