@@ -1,7 +1,0 @@
-// Let's import some data to Earth Engine
-
-// We will upload the 'GHS Urban Centers' database from JRC
-// https://ghsl.jrc.ec.europa.eu/ghs_stat_ucdb2015mt_r2019a.php
-
-// Download the shapefile from https://bit.ly/ghs-ucdb-shapefile
-// Unzip and upload
