@@ -25,5 +25,5 @@ Map.centerObject(geometry)
 Map.addLayer(clipped, rgbVis, 'Clipped Composite');
 
 // Exercise
-// Change the filters to select a Admin2 region of your choice
+// Change the filters to select the Admin2 region of your choice
 // Display the clipped composite
