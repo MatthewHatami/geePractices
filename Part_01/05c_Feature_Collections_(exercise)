@@ -8,5 +8,5 @@ Map.addLayer(admin2, {}, 'All Admin2');
 // Inspect and find the name of ADM1_NAME and ADM2_NAME properties
 // of your chosen Admin2 region
 
-// Apply filters and display the Admin2 region in 'blue' color
+// Apply filters and display the chosen Admin2 region in 'blue' color
 
