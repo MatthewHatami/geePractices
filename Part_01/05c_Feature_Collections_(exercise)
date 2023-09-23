@@ -9,3 +9,4 @@ Map.addLayer(admin2, {}, 'All Admin2');
 // of your chosen Admin2 region
 
 // Apply filters and display the Admin2 region in 'blue' color
+
