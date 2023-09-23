@@ -35,3 +35,7 @@ Export.image.toDrive({
     scale: 10,
     maxPixels: 1e9
 });
+
+// Exercise
+// Change the filters to select the Admin2 region of your choice
+// Export the composite image
