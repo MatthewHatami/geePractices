@@ -1,9 +1,11 @@
-// Apply a filter to select only the 'Bangalore Urban' district
-// Display only the selected district
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var admin2 = ee.FeatureCollection("FAO/GAUL_SIMPLIFIED_500m/2015/level2");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+Map.addLayer(admin2, {}, 'All Admin2');
 
-// Hint: The district names are in ADM2_NAME property
+// Exercise
 
-var admin2 = ee.FeatureCollection('FAO/GAUL_SIMPLIFIED_500m/2015/level2');
-var karnataka = admin2.filter(ee.Filter.eq('ADM1_NAME', 'Karnataka'));
+// Inspect and find the name of ADM1_NAME and ADM2_NAME properties
+// of your chosen Admin2 region
 
-var visParams = {'color': 'red'};
+// Apply filters and display the Admin2 region in 'blue' color
