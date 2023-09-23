@@ -1,8 +1,17 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
-var geometry = /* color: #d63000 */ee.Geometry.Point([77.5732612484775, 12.974168627832677]),
-    s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED"),
-    urban = ee.FeatureCollection("users/ujavalgandhi/e2e/ghs_urban_centers");
+var s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED"),
+    admin2 = ee.FeatureCollection("FAO/GAUL_SIMPLIFIED_500m/2015/level2");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
+var filteredAdmin2 = admin2
+  .filter(ee.Filter.eq('ADM1_NAME', 'Karnataka'))
+  .filter(ee.Filter.eq('ADM1_NAME', 'Bangalore Urban'));
+
+var geometry = filteredAdmin2.geometry();
+
+Map.centerObject(geometry)
+
+Map.addLayer(geometry, {'color': 'red'}, 'Selected Admin2');
+
 var rgbVis = {
   min: 0.0,
   max: 3000,
