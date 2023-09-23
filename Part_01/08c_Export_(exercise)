@@ -1,26 +1,33 @@
-// Change the filter to your city
-// Write the export function to export the results
+var filteredAdmin2 = admin2
+  .filter(ee.Filter.eq('ADM1_NAME', 'Karnataka'))
+  .filter(ee.Filter.eq('ADM2_NAME', 'Bangalore Urban'));
 
-var s2 = ee.ImageCollection('COPERNICUS/S2_HARMONIZED');
-var urban = ee.FeatureCollection('users/ujavalgandhi/e2e/ghs_urban_centers');
+var geometry = filteredAdmin2.geometry();
 
-var filtered = urban.filter(ee.Filter.eq('UC_NM_MN', 'Bengaluru'));
-var geometry = filtered.geometry();
+var filteredS2 = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
+  .filter(ee.Filter.date('2019-01-01', '2020-01-01'))
+  .filter(ee.Filter.bounds(geometry));
+
+var image = filteredS2.median(); 
+
+var clipped = image.clip(geometry);
 
 var rgbVis = {
   min: 0.0,
   max: 3000,
   bands: ['B4', 'B3', 'B2'], 
 };
-var filtered = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
-  .filter(ee.Filter.date('2019-01-01', '2020-01-01'))
-  .filter(ee.Filter.bounds(geometry));
+Map.centerObject(geometry)
+Map.addLayer(clipped, rgbVis, 'Clipped Composite');
 
-var image = filtered.median(); 
+var exportImage = clipped.select(['B4', 'B3', 'B2']);
 
-var clipped = image.clip(geometry);
-Map.centerObject(geometry);
-Map.addLayer(clipped, rgbVis, 'Clipped');
-
-var exportImage = clipped.select('B.*');
-
+Export.image.toDrive({
+    image: exportImage,
+    description: 'S2_Composite',
+    folder: 'earthengine',
+    fileNamePrefix: 's2_composite',
+    region: geometry,
+    scale: 10,
+    maxPixels: 1e9
+});
