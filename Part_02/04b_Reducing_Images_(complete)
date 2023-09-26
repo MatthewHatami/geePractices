@@ -26,7 +26,7 @@ var stats = image.reduceRegion({
   scale: 10,
   maxPixels: 1e10
   });
-print('Average Values of Image bands in Region', stats);
+print('Average values of image bands in geometry', stats);
 
 // Result of reduceRegion is a dictionary. 
 // We can extract the values using .get() function
