@@ -14,6 +14,16 @@ var filteredS2 = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
 var filteredS2Sorted = filteredS2.sort('CLOUDY_PIXEL_PERCENTAGE');
 var image = filteredS2Sorted.first().select('B.*')
 
+// If we want to compute the average value in each band,
+// we can use reduceRegion instead
+var stats = image.reduceRegion({
+  reducer: ee.Reducer.mean(),
+  geometry: geometry,
+  scale: 10,
+  maxPixels: 1e10
+  });
+print(stats);
+
 // Calculate NDVI
 var ndvi = image.normalizedDifference(['B8', 'B4']).rename(['ndvi']);
 
