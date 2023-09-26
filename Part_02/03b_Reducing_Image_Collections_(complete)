@@ -26,17 +26,17 @@ var withNdvi = filteredS2.map(addNDVI);
 
 // Apply a Median reducer
 var medianComposite = withNdvi
-  .reduce(ee.Reducer.median()).regexpRename('_median', '')
-  .clip(geometry);
+  .reduce(ee.Reducer.median()).regexpRename('_median', '');
 print(medianComposite);
 
 // Apply a Percentile Reducer
 var percentileComposite = withNdvi
-  .reduce(ee.Reducer.percentile([25])).regexpRename('_p25', '')
-  .clip(geometry);
+  .reduce(ee.Reducer.percentile([25])).regexpRename('_p25', '');
 print(percentileComposite);
 
 var rgbVis = {min: 0, max: 3000, bands: ['B4', 'B3', 'B2']};
 Map.centerObject(geometry)
-Map.addLayer(medianComposite, rgbVis, 'Median Composite');
-Map.addLayer(percentileComposite, rgbVis, '25th-Percentile Composite');
+Map.addLayer(medianComposite.clip(geometry),
+  rgbVis, 'Median Composite');
+Map.addLayer(percentileComposite.clip(geometry),
+  rgbVis, '25th-Percentile Composite');
