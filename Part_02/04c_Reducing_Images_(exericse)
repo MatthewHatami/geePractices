@@ -18,16 +18,4 @@ var rgbVis = {min: 0.0, max: 3000, bands: ['B4', 'B3', 'B2']};
 Map.centerObject(geometry)
 Map.addLayer(image, rgbVis, 'Image');
 
-// If we want to compute the average value in each band,
-// we can use reduceRegion instead
-var stats = image.reduceRegion({
-  reducer: ee.Reducer.mean(),
-  geometry: geometry,
-  scale: 10,
-  maxPixels: 1e10
-  });
-print(stats);
-
-// Result of reduceRegion is a dictionary. 
-// We can extract the values using .get() function
-print('Average value of B4 in geometry', stats.get('B4')); 
+var ndvi = image.normalizedDifference(['B8', 'B4']).rename(['ndvi']);
