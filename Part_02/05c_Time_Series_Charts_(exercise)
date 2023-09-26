@@ -52,4 +52,4 @@ print(chart);
 // Exercise
 // Delete the 'geometry'
 // Draw a polygon over any farm of oyur choice
-// Calculate the 'average' NDVI in the farm from the 'ndvi' image
+// Print the NDVI Time-Series chart.
