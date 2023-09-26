@@ -27,16 +27,13 @@ var withNdvi = filteredS2.map(addNDVI);
 var medianComposite = withNdvi
   .reduce(ee.Reducer.median()).regexpRename('_median', '')
   .clip(geometry);
-print(medianComposite);
 
-// Apply a Percentile Reducer
-var percentileComposite = withNdvi
-  .reduce(ee.Reducer.percentile([25])).regexpRename('_p25', '')
-  .clip(geometry);
-print(percentileComposite);
+var ndviComposite = medianComposite.select('ndvi').clip(geometry);
 
-var rgbVis = {min: 0, max: 3000, bands: ['B4', 'B3', 'B2']};
-Map.centerObject(geometry);
-Map.addLayer(medianComposite, rgbVis, 'Median Composite');
-Map.addLayer(percentileComposite, rgbVis, '25th-Percentile Composite');
- 
+var palette = ['#a6611a','#dfc27d','#f5f5f5','#80cdc1','#018571'];
+var ndviVis = {min:0, max:0.5, palette: palette };
+Map.addLayer(ndviComposite, ndviVis, 'ndvi');
+
+// Exercise
+// Change the filters to select the Admin2 region of your choice
+// Compute a Maximum NDVI Composite and add it to the Map
