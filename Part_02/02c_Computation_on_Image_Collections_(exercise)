@@ -25,9 +25,16 @@ function addIndices(image) {
 var withIndices = filteredS2.map(addIndices);
 
 // Composite
-var composite = withIndices.median().clip(geometry);
+var composite = withIndices.median();
 print(composite);
 
+var ndviComposite = composite.select('ndvi')
+var palette = ['#a6611a','#dfc27d','#f5f5f5','#80cdc1','#018571'];
+var ndviVis = {min:0, max:0.5, palette: palette };
+Map.centerObject(geometry, 10);
+Map.addLayer(ndviComposite.clip(geometry), ndviVis, 'ndvi');
+
+// Exercise
 // Extract the 'ndwi' band and display a NDWI map
 // use the palette ['white', 'blue']
 // Hint: Use .select() function to select a band
