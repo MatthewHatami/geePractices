@@ -8,23 +8,19 @@ var s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED"),
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 var filteredS2 = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
   .filter(ee.Filter.date('2019-01-01', '2020-01-01'))
-  .filter(ee.Filter.bounds(geometry))
-  .select('B.*');
+  .filter(ee.Filter.bounds(geometry));
 
-// Apply a Median reducer
-var medianComposite = filteredS2
-  .reduce(ee.Reducer.median()).regexpRename('_median', '')
-  .select('B.*');
-  
-print(medianComposite);
+// Sort the collection and pick the least cloudy image
+var filteredS2Sorted = filteredS2.sort('CLOUDY_PIXEL_PERCENTAGE');
+var image = filteredS2Sorted.first().select('B.*')
 
-var rgbVis = {min: 0, max: 3000, bands: ['B4', 'B3', 'B2']};
+var rgbVis = {min: 0.0, max: 3000, bands: ['B4', 'B3', 'B2']};
 Map.centerObject(geometry)
-Map.addLayer(medianComposite, rgbVis, 'Median Composite');
+Map.addLayer(image, rgbVis, 'Image');
 
 // If we want to compute the average value in each band,
 // we can use reduceRegion instead
-var stats = medianComposite.reduceRegion({
+var stats = image.reduceRegion({
   reducer: ee.Reducer.mean(),
   geometry: geometry,
   scale: 10,
