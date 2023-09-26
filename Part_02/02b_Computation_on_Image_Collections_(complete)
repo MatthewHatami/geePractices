@@ -14,7 +14,6 @@ var filteredS2 = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
 
 print('Number of images', filteredS2.size())
 
-
 // Write a function that computes NDVI for an image and adds it as a band
 function addNDVI(image) {
   var ndvi = image.normalizedDifference(['B8', 'B4']).rename('ndvi');
