@@ -1,19 +1,19 @@
-var s2 = ee.ImageCollection('COPERNICUS/S2_HARMONIZED');
-var admin1 = ee.FeatureCollection('FAO/GAUL_SIMPLIFIED_500m/2015/level1');
-  
-var karnataka = admin1.filter(ee.Filter.eq('ADM1_NAME', 'Karnataka'));
-var geometry = karnataka.geometry();
-var rgbVis = {min: 0.0, max: 3000, bands: ['B4', 'B3', 'B2']};
+/**** Start of imports. If edited, may not auto-convert in the playground. ****/
+var s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED"),
+    admin1 = ee.FeatureCollection("FAO/GAUL_SIMPLIFIED_500m/2015/level1");
+/***** End of imports. If edited, may not auto-convert in the playground. *****/
+var filteredAdmin2 = admin2
+  .filter(ee.Filter.eq('ADM1_NAME', 'Karnataka'))
+  .filter(ee.Filter.eq('ADM2_NAME', 'Bangalore Urban'));
 
-var filtered = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
+var geometry = filteredAdmin2.geometry();
+
+var filteredS2 = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
   .filter(ee.Filter.date('2019-01-01', '2020-01-01'))
   .filter(ee.Filter.bounds(geometry));
 
-   
-var composite = filtered.median().clip(geometry);
-Map.addLayer(composite, rgbVis, 'Karnataka Composite');
 
-// This function calculates both NDVI an d NDWI indices
+// This function calculates both NDVI and NDWI indices
 // and returns an image with 2 new bands added to the original image.
 function addIndices(image) {
   var ndvi = image.normalizedDifference(['B8', 'B4']).rename('ndvi');
@@ -22,7 +22,7 @@ function addIndices(image) {
 }
 
 // Map the function over the collection
-var withIndices = filtered.map(addIndices);
+var withIndices = filteredS2.map(addIndices);
 
 // Composite
 var composite = withIndices.median().clip(geometry);
