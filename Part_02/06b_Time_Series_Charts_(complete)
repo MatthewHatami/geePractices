@@ -6,18 +6,9 @@ var s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED"),
           [82.61088967323303, 27.163695288375266],
           [82.60757446289062, 27.16517483230927]]]);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-var filteredAdmin2 = admin2
-  .filter(ee.Filter.eq('ADM1_NAME', 'Karnataka'))
-  .filter(ee.Filter.eq('ADM2_NAME', 'Bangalore Urban'));
-
-var geometry = filteredAdmin2.geometry();
-
 var filteredS2 = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
   .filter(ee.Filter.date('2019-01-01', '2020-01-01'))
-  .filter(ee.Filter.bounds(geometry))
-  .select('B.*');
-
-print('Number of images', filteredS2.size())
+  .filter(ee.Filter.bounds(geometry));
 
 // Write a function that computes NDVI for an image and adds it as a band
 function addNDVI(image) {
