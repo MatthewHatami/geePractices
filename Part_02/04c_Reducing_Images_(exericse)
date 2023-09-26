@@ -22,7 +22,7 @@ var stats = image.reduceRegion({
   scale: 10,
   maxPixels: 1e10
   });
-print(stats);
+print('Mean Values in Region', stats);
 
 // Calculate NDVI
 var ndvi = image.normalizedDifference(['B8', 'B4']).rename(['ndvi']);
