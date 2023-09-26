@@ -15,4 +15,5 @@ var filteredS2 = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
 
 print('Number of images', filteredS2.size())
 
+Map.centerObject(geometry, 10);
 // Let's compute NDVI for all images
