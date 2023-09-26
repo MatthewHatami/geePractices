@@ -16,6 +16,10 @@ Map.addLayer(image, rgbVis, 'Image');
 
 // Exercise
 
+// Exercise
+// Delete the 'geometry' import
+// Add a point at your chosen location
+
 // Calculate the Normalized Difference Built-Up Index (NDBI) for the image
 // Hint: NDBI = (SWIR1 – NIR) / (SWIR1 + NIR)
-// Visualize the built-up area using a 'red' palette
+// Visualize the index image using a 'red' palette
