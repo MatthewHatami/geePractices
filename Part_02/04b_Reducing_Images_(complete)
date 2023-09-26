@@ -1,18 +1,14 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED"),
-    admin2 = ee.FeatureCollection("FAO/GAUL_SIMPLIFIED_500m/2015/level2");
+    geometry = /* color: #d63000 */ee.Geometry.Polygon(
+        [[[82.60642647743225, 27.16350437805251],
+          [82.60984897613525, 27.1618529901377],
+          [82.61088967323303, 27.163695288375266],
+          [82.60757446289062, 27.16517483230927]]]);
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
-var filteredAdmin2 = admin2
-  .filter(ee.Filter.eq('ADM1_NAME', 'Karnataka'))
-  .filter(ee.Filter.eq('ADM2_NAME', 'Bangalore Urban'));
-
-var geometry = filteredAdmin2.geometry();
-
 var filteredS2 = s2.filter(ee.Filter.lt('CLOUDY_PIXEL_PERCENTAGE', 30))
   .filter(ee.Filter.date('2019-01-01', '2020-01-01'))
   .filter(ee.Filter.bounds(geometry));
-
-print('Number of images', filteredS2.size())
 
 // Write a function that computes NDVI for an image and adds it as a band
 function addNDVI(image) {
@@ -26,17 +22,10 @@ var withNdvi = filteredS2.map(addNDVI);
 // Apply a Median reducer
 var medianComposite = withNdvi
   .reduce(ee.Reducer.median()).regexpRename('_median', '')
-  .clip(geometry);
+  .clip(geometry)
+  .select('B.*');
 print(medianComposite);
-
-// Apply a Percentile Reducer
-var percentileComposite = withNdvi
-  .reduce(ee.Reducer.percentile([25])).regexpRename('_p25', '')
-  .clip(geometry);
-print(percentileComposite);
 
 var rgbVis = {min: 0, max: 3000, bands: ['B4', 'B3', 'B2']};
 Map.centerObject(geometry)
 Map.addLayer(medianComposite, rgbVis, 'Median Composite');
-Map.addLayer(percentileComposite, rgbVis, '25th-Percentile Composite');
- 
