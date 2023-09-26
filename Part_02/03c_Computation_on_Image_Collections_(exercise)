@@ -1,6 +1,6 @@
 /**** Start of imports. If edited, may not auto-convert in the playground. ****/
 var s2 = ee.ImageCollection("COPERNICUS/S2_HARMONIZED"),
-    admin1 = ee.FeatureCollection("FAO/GAUL_SIMPLIFIED_500m/2015/level1");
+    admin2 = ee.FeatureCollection("FAO/GAUL_SIMPLIFIED_500m/2015/level2");
 /***** End of imports. If edited, may not auto-convert in the playground. *****/
 var filteredAdmin2 = admin2
   .filter(ee.Filter.eq('ADM1_NAME', 'Karnataka'))
