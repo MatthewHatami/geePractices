@@ -29,6 +29,7 @@ var ndvi = image.normalizedDifference(['B8', 'B4']).rename(['ndvi']);
 
 var palette = ['#a6611a','#dfc27d','#f5f5f5','#80cdc1','#018571'];
 var ndviVis = {min:0, max:0.5, palette: palette };
+Map.centerObject(geometry);
 Map.addLayer(ndvi, ndviVis, 'NDVI Image');
 
 // Exercise
