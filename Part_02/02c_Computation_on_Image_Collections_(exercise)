@@ -35,6 +35,7 @@ Map.centerObject(geometry, 10);
 Map.addLayer(ndviComposite.clip(geometry), ndviVis, 'ndvi');
 
 // Exercise
+// Change the filters to select the Admin2 region of your choice
 // Extract the 'ndwi' band and display a NDWI map
 // use the palette ['white', 'blue']
 // Hint: Use .select() function to select a band
