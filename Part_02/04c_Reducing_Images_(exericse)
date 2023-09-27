@@ -33,5 +33,5 @@ Map.addLayer(ndvi, ndviVis, 'NDVI Image');
 
 // Exercise
 // Delete the 'geometry'
-// Draw a polygon over any farm of oyur choice
+// Draw a polygon over any farm of your choice
 // Calculate the 'average' NDVI in the farm from the 'ndvi' image
