@@ -35,7 +35,8 @@ var percentileComposite = withNdvi
 print(percentileComposite);
 
 var rgbVis = {min: 0, max: 3000, bands: ['B4', 'B3', 'B2']};
-Map.centerObject(geometry)
+Map.centerObject(geometry);
+Map.addLayer(geometry, {}, 'Selected Region');
 Map.addLayer(medianComposite.clip(geometry),
   rgbVis, 'Median Composite');
 Map.addLayer(percentileComposite.clip(geometry),
