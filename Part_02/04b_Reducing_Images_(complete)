@@ -15,7 +15,7 @@ var filteredS2Sorted = filteredS2.sort('CLOUDY_PIXEL_PERCENTAGE');
 var image = filteredS2Sorted.first().select('B.*')
 
 var rgbVis = {min: 0.0, max: 3000, bands: ['B4', 'B3', 'B2']};
-Map.centerObject(geometry)
+Map.centerObject(geometry);
 Map.addLayer(image, rgbVis, 'Image');
 
 // If we want to compute the average value in each band,
