@@ -19,4 +19,5 @@ Map.addLayer(image2019, rgbVis, '2019');
 // Exercise
 // Delete the 'geometry' import
 // Add a point at your chosen location
-// Create a median composite for 2020 and load it to the map
+// Create a median composite for both 2019 and 2020
+// Display both on the map
